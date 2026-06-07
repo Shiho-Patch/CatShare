@@ -109,7 +109,7 @@ class ChooseFilesContract : ActivityResultContract<Void?, List<Uri>>() {
     override fun getSynchronousResult(
         context: android.content.Context,
         input: Void?,
-    ): androidx.activity.result.contract.ActivityResult.SynchronousResult<List<Uri>>? = null
+    ): ActivityResultContract.SynchronousResult<List<Uri>>? = null
 
     override fun parseResult(resultCode: Int, intent: Intent?): List<Uri> {
         if (intent == null) return emptyList()

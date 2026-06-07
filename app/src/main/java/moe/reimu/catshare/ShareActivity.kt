@@ -73,7 +73,7 @@ class ShareActivity : ComponentActivity() {
             @Suppress("DEPRECATION")
             val uri = intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)
             if (uri != null) {
-                listOf(extractFileInfo(uri))
+                listOfNotNull(extractFileInfo(uri))
             } else {
                 val text = intent.getStringExtra(Intent.EXTRA_TEXT)
                 if (text != null) {

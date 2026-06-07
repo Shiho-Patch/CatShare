@@ -57,8 +57,8 @@ class ShareViewModel : ViewModel() {
                         6 -> {
                             // 品牌 + 5GHz 标志位
                             val buf = java.nio.ByteBuffer.allocate(16)
-                            buf.putLong(uuid.mostSignificantBits)
-                            buf.putLong(uuid.leastSignificantBits)
+                            buf.putLong(uuid.uuid.mostSignificantBits)
+                            buf.putLong(uuid.uuid.leastSignificantBits)
                             brandId = buf.array()[3]
                         }
                         27 -> {
