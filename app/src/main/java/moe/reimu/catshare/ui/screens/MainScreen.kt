@@ -1,15 +1,11 @@
 package moe.reimu.catshare.ui.screens
 
-import android.content.pm.PackageManager
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -28,21 +24,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
 import moe.reimu.catshare.R
 import moe.reimu.catshare.ui.components.CatCard
 import moe.reimu.catshare.ui.components.CatCardVariant
@@ -50,11 +42,10 @@ import moe.reimu.catshare.ui.components.CatHeroCard
 import moe.reimu.catshare.ui.components.CatIcon
 import moe.reimu.catshare.ui.components.CatIconSize
 import moe.reimu.catshare.ui.components.CatTopAppBar
-import moe.reimu.catshare.ui.theme.CatShareShapes
 import moe.reimu.catshare.ui.viewmodel.MainViewModel
 import rikka.shizuku.Shizuku
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
 @Composable
 fun MainScreen(
     onNavigateSettings: () -> Unit,
@@ -62,59 +53,8 @@ fun MainScreen(
     viewModel: MainViewModel = viewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val context = LocalContext.current
-
-    LaunchedEffect(Unit) {
-        // 初始化：绑定广播接收器 + 查询服务状态
-        viewModel.attach(context)
-        // MAC 权限检查
-        val macGranted = context.checkSelfPermission(
-            "android.permission.LOCAL_MAC_ADDRESS"
-        ) == PackageManager.PERMISSION_GRANTED
-        viewModel.setLocalMacAddressGranted(macGranted)
-        // Shizuku 绑定
-        val available = try {
-            Shizuku.pingBinder()
-        } catch (_: Throwable) {
-            false
-        }
-        viewModel.updateShizukuState(
-            available = available,
-            granted = available && Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED,
-        )
-    }
-
-    // Shizuku 监听
-    DisposableEffect(Unit) {
-        val permListener = Shizuku.OnRequestPermissionResultListener { _, grantResult ->
-            val available = try { Shizuku.pingBinder() } catch (_: Throwable) { false }
-            viewModel.updateShizukuState(
-                available = available,
-                granted = grantResult == PackageManager.PERMISSION_GRANTED,
-            )
-        }
-        val binderRecv = Shizuku.OnBinderReceivedListener {
-            val available = try { Shizuku.pingBinder() } catch (_: Throwable) { false }
-            viewModel.updateShizukuState(
-                available = available,
-                granted = Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED,
-            )
-        }
-        val binderDead = Shizuku.OnBinderDeadListener {
-            viewModel.updateShizukuState(available = false, granted = false)
-        }
-        Shizuku.addRequestPermissionResultListener(permListener)
-        Shizuku.addBinderReceivedListenerSticky(binderRecv)
-        Shizuku.addBinderDeadListener(binderDead)
-        onDispose {
-            Shizuku.removeRequestPermissionResultListener(permListener)
-            Shizuku.removeBinderReceivedListener(binderRecv)
-            Shizuku.removeBinderDeadListener(binderDead)
-        }
-    }
-
+    val macPermissionState = rememberPermissionState("android.permission.LOCAL_MAC_ADDRESS")
     val scrollState = rememberLazyListState()
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
     Scaffold(
         topBar = {
@@ -180,30 +120,30 @@ fun MainScreen(
                         Switch(
                             checked = uiState.isReceiverRunning,
                             onCheckedChange = { target ->
-                                viewModel.toggleReceiver(context, target)
+                                viewModel.toggleReceiver(target)
                             },
                         )
                     }
                 }
             }
 
-            if (!uiState.localMacAddressGranted) {
+            if (!macPermissionState.status.isGranted) {
                 item {
                     val (stateIcon, stateTitle, stateDesc) = when {
                         uiState.shizukuAvailable && uiState.shizukuGranted -> Triple(
                             Icons.Filled.Done,
-                            context.getString(R.string.shizuku_available),
-                            context.getString(R.string.shizuku_desc),
+                            stringResource(R.string.shizuku_available),
+                            stringResource(R.string.shizuku_desc),
                         )
                         uiState.shizukuAvailable && !uiState.shizukuGranted -> Triple(
                             Icons.Filled.Close,
-                            context.getString(R.string.shizuku_not_granted),
-                            context.getString(R.string.shizuku_desc),
+                            stringResource(R.string.shizuku_not_granted),
+                            stringResource(R.string.shizuku_desc),
                         )
                         else -> Triple(
                             Icons.Filled.Close,
-                            context.getString(R.string.shizuku_unavailable),
-                            context.getString(R.string.shizuku_desc),
+                            stringResource(R.string.shizuku_unavailable),
+                            stringResource(R.string.shizuku_desc),
                         )
                     }
                     CatCard(
@@ -244,8 +184,6 @@ fun MainScreen(
                     }
                 }
             }
-
-            item { Spacer(Modifier.height(8.dp)) }
         }
     }
 }

@@ -78,17 +78,13 @@ fun SettingsScreen(
         ) {
             item {
                 CatCard(variant = CatCardVariant.Filled) {
-                    Column(modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)) {
-                        OutlinedTextField(
-                            value = uiState.deviceName,
-                            onValueChange = viewModel::updateDeviceName,
-                            label = { Text(stringResource(R.string.device_name)) },
-                            modifier = Modifier.fillMaxWidth(),
-                            singleLine = true,
-                        )
-                    }
+                    OutlinedTextField(
+                        value = uiState.deviceName,
+                        onValueChange = viewModel::updateDeviceName,
+                        label = { Text(stringResource(R.string.device_name)) },
+                        modifier = Modifier.fillMaxWidth(),
+                        singleLine = true,
+                    )
                 }
             }
 
@@ -96,8 +92,7 @@ fun SettingsScreen(
                 CatCard(variant = CatCardVariant.Filled) {
                     Row(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
+                            .fillMaxWidth(),
                         verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
                     ) {
                         Column(modifier = Modifier.weight(1f)) {
@@ -119,8 +114,7 @@ fun SettingsScreen(
                 CatCard(variant = CatCardVariant.Filled) {
                     Row(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
+                            .fillMaxWidth(),
                         verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
                     ) {
                         Column(modifier = Modifier.weight(1f)) {
@@ -165,7 +159,7 @@ fun SettingsScreen(
                                     .setType("text/plain")
                                     .setFlags(
                                         Intent.FLAG_GRANT_READ_URI_PERMISSION or
-                                            Intent.FLAG_ACTIVITY_NEW_TASK
+                                                Intent.FLAG_ACTIVITY_NEW_TASK
                                     )
                                 context.startActivity(intent)
                             } catch (_: Throwable) {
@@ -174,7 +168,7 @@ fun SettingsScreen(
                         }.start()
                     },
                 ) {
-                    Column(modifier = Modifier.padding(16.dp)) {
+                    Column {
                         Text(
                             text = stringResource(R.string.capture_logs),
                             style = MaterialTheme.typography.titleMedium,
@@ -187,8 +181,6 @@ fun SettingsScreen(
                     }
                 }
             }
-
-            item { Spacer(Modifier.padding(8.dp)) }
         }
     }
 }

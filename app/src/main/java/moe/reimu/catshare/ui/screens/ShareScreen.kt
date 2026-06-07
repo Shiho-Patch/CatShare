@@ -1,6 +1,5 @@
 package moe.reimu.catshare.ui.screens
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -8,23 +7,19 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -32,7 +27,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import moe.reimu.catshare.R
 import moe.reimu.catshare.models.DiscoveredDevice
 import moe.reimu.catshare.models.FileInfo
-import moe.reimu.catshare.services.P2pSenderService
 import moe.reimu.catshare.ui.components.CatCard
 import moe.reimu.catshare.ui.components.CatCardVariant
 import moe.reimu.catshare.ui.components.CatChildAppBar
@@ -52,11 +46,9 @@ fun ShareScreen(
     viewModel: ShareViewModel = viewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val context = LocalContext.current
 
-    // 生命周期感知的扫描启停
     LaunchedEffect(Unit) {
-        viewModel.startScan(context)
+        viewModel.startScan()
     }
 
     Scaffold(
@@ -98,18 +90,13 @@ fun ShareScreen(
             }
 
             val onPick: (DiscoveredDevice) -> Unit = { device ->
-                val task = moe.reimu.catshare.models.TaskInfo(
-                    id = kotlin.random.Random.nextInt(),
-                    device = device,
-                    files = files,
-                )
-                P2pSenderService.startTaskChecked(context, task)
+                viewModel.startTask(device, files)
                 onDeviceSelected()
             }
 
             CatPullRefresh(
                 isRefreshing = false,
-                onRefresh = { viewModel.startScan(context) },
+                onRefresh = { viewModel.startScan() },
                 contentPadding = PaddingValues(16.dp),
             ) {
                 when {
@@ -126,7 +113,7 @@ fun ShareScreen(
                                     title = stringResource(R.string.choose_recipient),
                                     description = stringResource(R.string.scanning_desc),
                                     actionLabel = "Refresh",
-                                    onAction = { viewModel.startScan(context) },
+                                    onAction = { viewModel.startScan() },
                                 )
                             }
                         }
