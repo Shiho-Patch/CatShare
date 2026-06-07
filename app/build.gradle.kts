@@ -78,6 +78,10 @@ android {
             excludes += "META-INF/INDEX.LIST"
             excludes += "META-INF/*.properties"
         }
+        jniLibs {
+            // 禁用 debug 版本的 JNI 符号剥离（规避 NDK llvm-strip 在非 x86_64 环境下的启动失败问题
+            keepDebugSymbols += "**/*.so"
+        }
     }
 }
 
