@@ -36,10 +36,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import moe.reimu.catshare.ui.theme.CatShareShapes
 
-// ===== 按钮变体 =====
 enum class CatButtonVariant { Filled, Tonal, Outlined, Text }
 
-// ===== 通用按钮（多态） =====
 @Composable
 fun CatButton(
     text: String,
@@ -117,7 +115,6 @@ fun CatButton(
     }
 }
 
-// ===== 主操作按钮 — 带成功态动画 =====
 @Composable
 fun CatPrimaryButton(
     text: String,

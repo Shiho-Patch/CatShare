@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import moe.reimu.catshare.AppSettings
 
-// ===== 设置 UI 状态 =====
 data class SettingsUiState(
     val deviceName: String = "",
     val verbose: Boolean = false,
@@ -27,7 +26,6 @@ class SettingsViewModel : ViewModel() {
         initialValue = SettingsUiState(),
     )
 
-    // ===== 从磁盘读取初始设置 =====
     fun load(context: Context) {
         val settings = AppSettings(context)
         _uiState.update {
@@ -51,7 +49,6 @@ class SettingsViewModel : ViewModel() {
         _uiState.update { it.copy(autoAccept = !it.autoAccept) }
     }
 
-    // ===== 保存设置到磁盘 =====
     fun save(context: Context) {
         val state = _uiState.value
         val settings = AppSettings(context)

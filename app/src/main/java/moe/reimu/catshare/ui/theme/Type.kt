@@ -6,7 +6,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
-// M3 Expressive 排版系统 — 强调标题和展示级文字
 val CatShareTypography = Typography(
     displayLarge = TextStyle(
         fontFamily = FontFamily.Default,
@@ -109,5 +108,4 @@ val CatShareTypography = Typography(
     ),
 )
 
-// 向后兼容：保留默认变量名（供 Theme.kt 使用）
 val Typography = CatShareTypography

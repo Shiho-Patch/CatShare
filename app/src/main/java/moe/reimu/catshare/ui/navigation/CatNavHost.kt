@@ -16,7 +16,6 @@ import moe.reimu.catshare.ui.screens.MainScreen
 import moe.reimu.catshare.ui.screens.SettingsScreen
 import moe.reimu.catshare.ui.screens.ShareScreen
 
-// ===== 路由常量 =====
 object Routes {
     const val MAIN = "main"
     const val SHARE = "share"

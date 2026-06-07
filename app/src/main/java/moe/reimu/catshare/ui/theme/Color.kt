@@ -2,9 +2,6 @@ package moe.reimu.catshare.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-// ===== 暖橘猫品牌色板 =====
-// Light theme — 暖色基调，阳光而不刺眼
-
 val Orange40 = Color(0xFFE8692A)          // primary 暖橘
 val OrangeLight40 = Color(0xFFFF8F5F)      // 浅橘色（用于渐变/点缀）
 val OrangeVariant40 = Color(0xFFCC5A20)    // primaryContainer 深橘
@@ -24,7 +21,6 @@ val TextOnVariant40 = Color(0xFF5A4A3A)     // onSurfaceVariant
 val Outline40 = Color(0xFFA08968)            // outline 描边色
 val Error40 = Color(0xFFE74C3C)               // error 珊瑚红
 
-// ===== Dark theme — 暖暗色调 =====
 val Orange80 = Color(0xFFFFAB7B)              // primary
 val OrangeVariant80 = Color(0xFFCC5A20)       // primaryContainer
 val Amber80 = Color(0xFFFFCC80)               // secondary

@@ -16,7 +16,6 @@ import moe.reimu.catshare.services.GattServerService
 import moe.reimu.catshare.utils.ServiceState
 import moe.reimu.catshare.utils.registerInternalBroadcastReceiver
 
-// ===== 主界面 UI 状态 =====
 data class MainUiState(
     val isReceiverRunning: Boolean = false,
     val shizukuGranted: Boolean = false,
@@ -29,7 +28,6 @@ class MainViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(MainUiState())
     val uiState: StateFlow<MainUiState> = _uiState.asStateFlow()
 
-    // ===== 内部状态接收器（Broadcast → Flow 桥接） =====
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             when (intent?.action) {
@@ -45,7 +43,6 @@ class MainViewModel : ViewModel() {
     private var receiverRegistered = false
     private var registeredContext: Context? = null
 
-    // ===== 生命周期入口 =====
     fun attach(context: Context) {
         if (!receiverRegistered) {
             context.registerInternalBroadcastReceiver(
@@ -75,7 +72,6 @@ class MainViewModel : ViewModel() {
         unregister()
     }
 
-    // ===== Shizuku 状态 =====
     fun updateShizukuState(available: Boolean, granted: Boolean) {
         _uiState.update {
             it.copy(
@@ -89,7 +85,6 @@ class MainViewModel : ViewModel() {
         _uiState.update { it.copy(localMacAddressGranted = granted) }
     }
 
-    // ===== 业务操作：切换可见开关 =====
     fun toggleReceiver(context: Context, targetOn: Boolean) {
         if (targetOn) {
             GattServerService.start(context)

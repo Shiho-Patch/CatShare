@@ -32,10 +32,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import moe.reimu.catshare.ui.theme.CatShareShapes
 
-// ===== 卡片变体 =====
 enum class CatCardVariant { Elevated, Filled, Outlined, Clickable }
 
-// ===== 通用卡片组件 — 多态设计 =====
 @Composable
 fun CatCard(
     modifier: Modifier = Modifier,
@@ -130,7 +128,6 @@ fun CatCard(
     }
 }
 
-// ===== Hero 卡片：渐变背景 + 大面积图标 =====
 @Composable
 fun CatHeroCard(
     title: String,

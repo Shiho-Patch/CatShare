@@ -43,7 +43,6 @@ import moe.reimu.catshare.ui.components.EmptyState
 import moe.reimu.catshare.ui.components.ScanningState
 import moe.reimu.catshare.ui.viewmodel.ShareViewModel
 
-// ===== Share 设备选择界面 =====
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ShareScreen(
@@ -149,7 +148,6 @@ fun ShareScreen(
     }
 }
 
-// ===== 单个设备行 =====
 @Composable
 private fun DeviceRow(
     device: DiscoveredDevice,

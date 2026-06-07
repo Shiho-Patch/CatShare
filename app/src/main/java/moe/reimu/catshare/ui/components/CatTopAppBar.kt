@@ -27,7 +27,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 
-// ===== 自定义顶栏 — 带动画 + M3 Expressive 风格 =====
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CatTopAppBar(
@@ -72,7 +71,6 @@ fun CatTopAppBar(
     )
 }
 
-// ===== 带动画的子页顶栏（有返回按钮） =====
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CatChildAppBar(

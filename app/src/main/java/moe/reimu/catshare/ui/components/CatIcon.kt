@@ -19,14 +19,12 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import moe.reimu.catshare.ui.theme.CatShareShapes
 
-// ===== 图标尺寸规范 =====
 enum class CatIconSize(val size: Dp, val padding: Dp) {
     Small(40.dp, 8.dp),
     Medium(48.dp, 10.dp),
     Large(56.dp, 14.dp),
 }
 
-// ===== 圆形图标容器 — 带品牌色背景 =====
 @Composable
 fun CatIcon(
     imageVector: ImageVector,
@@ -55,7 +53,6 @@ fun CatIcon(
     }
 }
 
-// ===== 圆角方形图标容器 =====
 @Composable
 fun CatIconRounded(
     imageVector: ImageVector,

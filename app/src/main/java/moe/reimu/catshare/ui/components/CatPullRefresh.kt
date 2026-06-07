@@ -18,7 +18,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
-// ===== 下拉刷新容器（Material3 原生） =====
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CatPullRefresh(

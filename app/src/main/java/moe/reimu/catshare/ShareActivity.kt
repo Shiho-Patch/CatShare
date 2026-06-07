@@ -22,7 +22,6 @@ class ShareActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Bluetooth 检查
         val btManager = getSystemService(BluetoothManager::class.java)
         val btAdapter = btManager.adapter
         if (btAdapter == null || !btAdapter.isEnabled) {
@@ -30,7 +29,6 @@ class ShareActivity : ComponentActivity() {
             finish()
             return
         }
-        // WiFi 检查
         val wifiManager = getSystemService(WifiManager::class.java)
         if (!wifiManager.isWifiEnabled) {
             Toast.makeText(this, R.string.wifi_disabled, Toast.LENGTH_LONG).show()
@@ -38,7 +36,6 @@ class ShareActivity : ComponentActivity() {
             return
         }
 
-        // 解析传入的文件（ACTION_SEND / ACTION_SEND_MULTIPLE）
         val files = try {
             parseSharedFiles(intent)
         } catch (e: Throwable) {
@@ -59,7 +56,6 @@ class ShareActivity : ComponentActivity() {
                         files = files,
                         onBack = { finish() },
                         onDeviceSelected = {
-                            // 启动发送任务后，关闭本 Activity
                             finish()
                         },
                     )

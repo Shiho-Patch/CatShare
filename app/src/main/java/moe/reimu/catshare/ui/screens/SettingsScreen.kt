@@ -37,7 +37,6 @@ import moe.reimu.catshare.ui.components.CatTopAppBar
 import moe.reimu.catshare.ui.viewmodel.SettingsViewModel
 import java.io.File
 
-// ===== 设置界面 =====
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
@@ -77,7 +76,6 @@ fun SettingsScreen(
             contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
             verticalArrangement = Arrangement.spacedBy(14.dp),
         ) {
-            // 1. 设备名称
             item {
                 CatCard(variant = CatCardVariant.Filled) {
                     Column(modifier = Modifier
@@ -94,7 +92,6 @@ fun SettingsScreen(
                 }
             }
 
-            // 2. 详细日志
             item {
                 CatCard(variant = CatCardVariant.Filled) {
                     Row(
@@ -118,7 +115,6 @@ fun SettingsScreen(
                 }
             }
 
-            // 3. 自动接收
             item {
                 CatCard(variant = CatCardVariant.Filled) {
                     Row(
@@ -142,7 +138,6 @@ fun SettingsScreen(
                 }
             }
 
-            // 4. 导出日志
             item {
                 CatCard(
                     variant = CatCardVariant.Outlined,

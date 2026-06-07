@@ -54,7 +54,6 @@ import moe.reimu.catshare.ui.theme.CatShareShapes
 import moe.reimu.catshare.ui.viewmodel.MainViewModel
 import rikka.shizuku.Shizuku
 
-// ===== 主界面 — M3 Expressive 风格 =====
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
@@ -140,7 +139,6 @@ fun MainScreen(
             contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
             verticalArrangement = Arrangement.spacedBy(14.dp),
         ) {
-            // ========== Hero：发送入口 ==========
             item {
                 CatHeroCard(
                     title = stringResource(R.string.send),
@@ -156,7 +154,6 @@ fun MainScreen(
                 )
             }
 
-            // ========== 可发现开关卡片 ==========
             item {
                 CatCard(variant = CatCardVariant.Filled) {
                     Row(
@@ -190,7 +187,6 @@ fun MainScreen(
                 }
             }
 
-            // ========== Shizuku 状态（仅在无本地 MAC 权限时显示） ==========
             if (!uiState.localMacAddressGranted) {
                 item {
                     val (stateIcon, stateTitle, stateDesc) = when {

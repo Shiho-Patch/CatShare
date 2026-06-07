@@ -19,7 +19,6 @@ import moe.reimu.catshare.models.DiscoveredDevice
 import moe.reimu.catshare.utils.BleUtils
 import moe.reimu.catshare.utils.DeviceUtils
 
-// ===== Share 界面 UI 状态 =====
 data class ShareUiState(
     val devices: List<DiscoveredDevice> = emptyList(),
     val isScanning: Boolean = false,
@@ -38,7 +37,6 @@ class ShareViewModel : ViewModel() {
     private var scanner: android.bluetooth.le.BluetoothLeScanner? = null
     private var scanCallback: ScanCallback? = null
 
-    // ===== 启动 BLE 扫描 =====
     @SuppressLint("MissingPermission")
     fun startScan(context: Context) {
         if (_uiState.value.isScanning) return
@@ -120,7 +118,6 @@ class ShareViewModel : ViewModel() {
         }
     }
 
-    // ===== 停止扫描 =====
     @SuppressLint("MissingPermission")
     fun stopScan() {
         try {
@@ -150,7 +147,6 @@ class ShareViewModel : ViewModel() {
         }
     }
 
-    // ===== ViewModel 清理：确保不会泄漏扫描 =====
     override fun onCleared() {
         super.onCleared()
         stopScan()

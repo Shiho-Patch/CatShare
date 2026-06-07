@@ -20,7 +20,6 @@ import moe.reimu.catshare.ui.theme.CatShareTheme
 
 class MainActivity : ComponentActivity() {
 
-    // ===== 文件选择器 launcher（必须用 registerForActivityResult 注册） =====
     private val fileLauncher = registerForActivityResult(ChooseFilesContract()) { uris ->
         if (uris.isNotEmpty()) {
             val intent = Intent(this, ShareActivity::class.java)
@@ -29,7 +28,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    // ===== 权限请求 launcher =====
     private val permissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { results ->
@@ -46,7 +44,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             CatShareTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
-                    // 委托给 NavHost
                     CatNavHost(onPickFiles = { fileLauncher.launch(null) })
                 }
             }
@@ -96,7 +93,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-// ===== 文件选择器 Contract（从原 Activity 提取） =====
 class ChooseFilesContract : ActivityResultContract<Void?, List<Uri>>() {
     override fun createIntent(context: android.content.Context, input: Void?): Intent {
         val cf = Intent(Intent.ACTION_GET_CONTENT)

@@ -16,7 +16,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
-// ===== Light — 暖橘猫品牌色板 =====
 private val LightColorScheme = lightColorScheme(
     primary = Orange40,
     onPrimary = Color(0xFFFFFFFF),
@@ -59,7 +58,6 @@ private val LightColorScheme = lightColorScheme(
     inversePrimary = OrangeLight40,
 )
 
-// ===== Dark — 暖暗色调 =====
 private val DarkColorScheme = darkColorScheme(
     primary = Orange80,
     onPrimary = Color(0xFF3A1B00),
@@ -102,7 +100,6 @@ private val DarkColorScheme = darkColorScheme(
     inversePrimary = Orange40,
 )
 
-// 额外的自定义颜色 token（用于 Hero 区域等）
 data class CatShareExtraColors(
     val heroGradientStart: androidx.compose.ui.graphics.Color,
     val heroGradientEnd: androidx.compose.ui.graphics.Color,
@@ -129,7 +126,6 @@ val LocalCatShareExtraColors = staticCompositionLocalOf { LightExtraColors }
 @Composable
 fun CatShareTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+ — 保留，给用户动态取色的选项
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {

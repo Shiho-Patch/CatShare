@@ -40,7 +40,6 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import moe.reimu.catshare.ui.theme.CatShareShapes
 
-// ========== 1. Loading（加载中） ==========
 @Composable
 fun LoadingState(
     label: String? = null,
@@ -68,7 +67,6 @@ fun LoadingState(
     }
 }
 
-// ========== 2. Empty（空状态） ==========
 @Composable
 fun EmptyState(
     icon: ImageVector,
@@ -117,7 +115,6 @@ fun EmptyState(
     }
 }
 
-// ========== 3. Error（错误态） ==========
 @Composable
 fun ErrorState(
     title: String,
@@ -168,7 +165,6 @@ fun ErrorState(
     }
 }
 
-// ========== 4. Scanning（扫描中 — 呼吸脉冲动画） ==========
 @Composable
 fun ScanningState(
     icon: ImageVector,
@@ -200,13 +196,11 @@ fun ScanningState(
             modifier = Modifier.size(120.dp),
             contentAlignment = Alignment.Center,
         ) {
-            // 外部脉冲圆
             Surface(
                 shape = CircleShape,
                 color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = alpha.value * 0.55f),
                 modifier = Modifier.size((120 * scale.value).dp),
             ) {}
-            // 核心图标容器
             Surface(
                 shape = CircleShape,
                 color = MaterialTheme.colorScheme.primary,
@@ -229,7 +223,6 @@ fun ScanningState(
     }
 }
 
-// ========== 5. Success（成功态 — 对勾动画） ==========
 @Composable
 fun SuccessState(
     title: String,
